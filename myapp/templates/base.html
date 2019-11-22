@@ -1,0 +1,93 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}Главная{% endblock %}</title>
+
+	<!-- links -->
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+	<div id="main">
+		{% block logo %}
+
+		<div id="logo">
+			<div>
+			
+				<img src="{% static 'logo.png' %}" alt="">
+				
+			</div>
+			<h1>Go To School</h1>
+		</div>
+		{% endblock %}
+
+		{% block main_block %}
+		<div id="header">
+			<div>
+				<input type="text" placeholder="Введите текст для поиска">
+				<button id="search_img"><img src="{% static 'search.png' %}" alt=""></button>
+			</div>
+			{% if user.is_authenticated %}
+			<div style="background: #285686;" id="data_user">
+			
+					<img src="{{ user.profile.avatar.url }}" id="data_user_img">
+	
+					<p>{{user.get_full_name}}</p>
+					<button id="menu_btn">
+						<img src="{% static 'arrow.png' %}" alt="">
+					</button>
+	
+			</div>
+			{% else %}
+			<div><a href="{% url 'main:login' %}">Авторизация</a></div>
+			{% endif %}
+		</div>
+
+				{% if user.is_authenticated %}
+		<div id="main_datas_block">
+			<h2 style='color: #fff;'>Дети</h2><br>
+			<div id='childs'>
+				{% for data in children %}
+
+					<p>
+						<img src="{{ data.img.url }}" id="data_user_img">
+						<b><a href="#">{{data.last_name}} {{data.first_name}} {{data.father}}</a></b>
+					</p>
+				{% endfor %}
+			</div><br>
+			<div>
+				<a href="{% url 'main:index' %}">Главная</a><br>
+				<a href="{% url 'main:add' %}">Добавить данные о ребенке</a><br>
+				<a href="{% url 'main:myprofile' %}">Профиль</a><br>
+				<a href="{% url 'main:logout' %}">Выход</a>
+			</div>
+		</div>
+			{% endif %}
+
+	{% block aside %}
+		<div id="aside">
+			<div id="main_flex_block">
+				<div id="main_flex_block_first"></div>
+				<div id="main_flex_block_second">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+
+			<div id="next_aside_first_block"></div>
+			<div id="next_aside_second_block"></div>
+		</div>
+			{% endblock %}
+		{% endblock %}
+	</div>
+
+	
+
+	<!-- scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="{% static 'scripts.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Авторизация{% endblock%}
+
+
+{% block logo %}
+
+	{% if messages %}
+				{% for message in messages %}
+					<script>
+
+						alert("{{message}}");
+					</script>
+				{% endfor %}
+			{% endif %}
+
+	<div id="logo_log">
+			<div>
+				<img src="{% static 'logo.png' %}" alt="">
+			</div>
+			<h1>Go To School</h1>
+		</div>	
+{% endblock %}
+	
+{% block main_block %}
+<br><br>
+	<div id="log_block">
+		<form id="log_form" action="{% url 'main:login' %}" method="POST">
+			{% csrf_token %}
+			{{form}}
+			<button type="submit">Авторизация</button>
+
+
+		</form>
+	</div>
+			<br>
+		<a class="sup_link" href="{% url 'main:register' %}">Создать учетную запись</a>
+		<br>
+		<a class="sup_link" href="#">Не можете войти?</a>
+
+{% endblock%}

@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Добавить ребенка{% endblock%}
+
+
+{% block logo %}
+
+	{% if messages %}
+				{% for message in messages %}
+					<script>
+
+						alert("{{message}}");
+					</script>
+				{% endfor %}
+			{% endif %}
+
+	<div id="logo_log">
+			<div>
+				<img src="{% static 'logo.png' %}" alt="">
+			</div>
+			<h1>Go To School</h1>
+		</div>	
+{% endblock %}
+	
+
+
+{% block aside %}
+	<div id="main_profile">
+		<h3>Профиль:</h3><br>
+		<div>
+			<img src="{{ profile.avatar.url }}" alt="">
+		
+			<p>
+				Имя: {{user.first_name}}
+				<br><br>
+				Фамилия: {{user.last_name}}
+
+				<br><br>
+				Дети: {% if children %}
+						{% for data in children %}
+							{{data.first_name}} {{data.last_name}},
+						{% endfor %}
+					{% else %}
+					- <a href="{% url 'main:add' %}">(добавить)</a>
+				{% endif %}
+
+			</p>
+		</div>
+
+	</div>
+{% endblock %}

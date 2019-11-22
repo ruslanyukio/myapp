@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Добавить ребенка{% endblock%}
+
+
+{% block logo %}
+
+	{% if messages %}
+				{% for message in messages %}
+					<script>
+
+						alert("{{message}}");
+					</script>
+				{% endfor %}
+			{% endif %}
+
+	<div id="logo_log">
+			<div>
+				<img src="{% static 'logo.png' %}" alt="">
+			</div>
+			<h1>Go To School</h1>
+		</div>	
+{% endblock %}
+	
+{% block main_block %}
+<br><br>
+	<div class="add_block" id="log_block">
+		<form action="{% url 'main:add' %}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+		
+			{{form.first_name}}
+			<br>
+			{{form.last_name}}
+			<br>
+			{{form.father}}
+			<br>
+			{{form.bored}}
+			<br>
+			{{form.sex}}
+			<br>
+			{{form.img}}
+			<button type="submit">Добавить</button>
+
+
+		</form>
+	</div>
+			<br>
+		<a class="sup_link" href="{% url 'main:index' %}">Главная</a>
+		<br>
+
+{% endblock%}
